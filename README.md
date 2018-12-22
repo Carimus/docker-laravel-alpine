@@ -9,6 +9,8 @@ and tools installed to be ready to run laravel web servers or workers.
 
  - `git`
  - `bash`
+ - `supervisor`
+ - `nginx` (only for php-fpm images)
 
 ### PHP Extensions
 
