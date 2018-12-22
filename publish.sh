@@ -21,9 +21,9 @@ echo
 
 echo "Pushing images to docker hub:"
 
-docker push carimus/node-alpine-aws:php7.2-cli
-docker push carimus/node-alpine-aws:latest
-docker push carimus/node-alpine-aws:php7.2-fpm
+docker push carimus/laravel-alpine:php7.2-cli
+docker push carimus/laravel-alpine:latest
+docker push carimus/laravel-alpine:php7.2-fpm
 
 echo
 
