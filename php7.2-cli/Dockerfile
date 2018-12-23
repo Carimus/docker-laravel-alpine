@@ -3,7 +3,9 @@ FROM php:7.2-cli-alpine
 WORKDIR /opt
 
 # Install apk packages we want
-RUN apk add -Uuv git bash supervisor freetype-dev libjpeg-turbo-dev libpng-dev  \
+RUN apk add -Uuv \
+    git bash supervisor freetype-dev libjpeg-turbo-dev \
+    libpng-dev postgresql-dev  \
     && rm -rf /var/cache/apk/*
 
 # Install wait-for-it
@@ -22,3 +24,15 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 # Install PHP extensions
 COPY support/install-extensions.sh /opt/install-extensions.sh
 RUN /opt/install-extensions.sh
+
+# Install awscli
+RUN apk -v --update add \
+        python \
+        py-pip \
+        groff \
+        less \
+        mailcap \
+        && \
+    pip install --upgrade awscli==1.14.5 s3cmd==2.0.1 python-magic && \
+    apk -v --purge del py-pip && \
+    rm /var/cache/apk/*

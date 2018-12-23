@@ -5,23 +5,32 @@ and tools installed to be ready to run laravel web servers or workers.
 
 ## Packages
 
-### `apk`
+### `apk` Packages
 
  - `git`
  - `bash`
  - `supervisor`
  - `nginx` (only for php-fpm images)
+ - `python`
+ - `pip`
 
 ### PHP Extensions
 
  - `phpredis`
+ - `pdo`
  - `pdo_mysql`
+ - `pdo_pgsql`
  - `mysqli`
  - `opcache`
  - `redis`
  - `pcntl`
  - `gd`
  - `bcmath`
+
+### `pip` Packages
+
+ - `awscli`
+ - `s3cmd`
 
 ### Other
 
