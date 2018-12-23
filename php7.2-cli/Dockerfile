@@ -3,7 +3,7 @@ FROM php:7.2-cli-alpine
 WORKDIR /opt
 
 # Install apk packages we want
-RUN apk add -Uuv git bash supervisor  \
+RUN apk add -Uuv git bash supervisor freetype-dev libjpeg-turbo-dev libpng-dev  \
     && rm -rf /var/cache/apk/*
 
 # Install wait-for-it

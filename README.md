@@ -20,6 +20,8 @@ and tools installed to be ready to run laravel web servers or workers.
  - `opcache`
  - `redis`
  - `pcntl`
+ - `gd`
+ - `bcmath`
 
 ### Other
 

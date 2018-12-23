@@ -3,7 +3,7 @@ FROM php:7.2-fpm-alpine
 WORKDIR /opt
 
 # Install apk packages we want
-RUN apk add -Uuv git bash supervisor nginx \
+RUN apk add -Uuv git bash supervisor freetype-dev libjpeg-turbo-dev libpng-dev nginx \
     && rm -rf /var/cache/apk/*
 
 # Install wait-for-it
