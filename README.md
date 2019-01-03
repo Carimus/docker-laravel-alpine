@@ -26,6 +26,7 @@ and tools installed to be ready to run laravel web servers or workers.
  - `pcntl`
  - `gd`
  - `bcmath`
+ - `posix`
 
 ### `pip` Packages
 
