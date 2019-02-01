@@ -4,7 +4,7 @@ WORKDIR /opt
 
 # Install apk packages we want
 RUN apk add -Uuv \
-    git bash supervisor freetype-dev libjpeg-turbo-dev \
+    git bash supervisor freetype-dev libjpeg-turbo-dev libzip-dev \
     libpng-dev postgresql-dev nginx \
     && rm -rf /var/cache/apk/*
 
