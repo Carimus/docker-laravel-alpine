@@ -14,11 +14,9 @@ RUN curl https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for
     && ln -s /opt/wait-for-it.sh /usr/bin/wait-for-it
 
 # Download and install composer
-RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
-    && php -r "if (hash_file('sha384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-    && php composer-setup.php \
-    && php -r "unlink('composer-setup.php');" \
-    && chmod +x /opt/composer.phar \
+ARG COMPOSER_COMMIT_HASH=da7be05fa1c9f68b9609726451d1aaac7dd832cb
+RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/${COMPOSER_COMMIT_HASH}/web/installer -O - -q | php -- --quiet
+RUN chmod +x /opt/composer.phar \
     && ln -s /opt/composer.phar /usr/bin/composer
 
 # Install PHP extensions
