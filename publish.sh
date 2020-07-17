@@ -6,8 +6,8 @@ GIT_STATUS="$(git status -s)"
 GIT_SHORT_COMMIT="$(git rev-parse --short HEAD)"
 
 REPO_NAME="carimus/laravel-alpine"
-CLI_TAG="php7.2-cli"
-FPM_TAG="php7.2-fpm"
+CLI_TAG="php7.3-cli"
+FPM_TAG="php7.3-fpm"
 
 if [[ -n "$GIT_STATUS" ]]; then
   echo "There are untracked changes or the working tree is dirty."
