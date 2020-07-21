@@ -1,11 +1,11 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.3-cli-alpine
 
 WORKDIR /opt
 
 # Install apk packages we want
 RUN apk add -Uuv \
     git bash supervisor freetype-dev libjpeg-turbo-dev libzip-dev \
-    libpng-dev postgresql-dev nginx \
+    libpng-dev postgresql-dev  \
     && rm -rf /var/cache/apk/*
 
 # Install wait-for-it
@@ -25,7 +25,7 @@ RUN /opt/install-extensions.sh
 
 # Install awscli
 RUN apk -v --update add \
-        python \
+        python2 \
         py-pip \
         groff \
         less \

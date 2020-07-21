@@ -6,8 +6,8 @@ GIT_STATUS="$(git status -s)"
 GIT_SHORT_COMMIT="$(git rev-parse --short HEAD)"
 
 REPO_NAME="carimus/laravel-alpine"
-CLI_TAG="php7.2-cli"
-FPM_TAG="php7.2-fpm"
+CLI_TAG="php7.3-cli"
+FPM_TAG="php7.3-fpm"
 
 if [[ -n "$GIT_STATUS" ]]; then
   echo "There are untracked changes or the working tree is dirty."
@@ -16,28 +16,28 @@ if [[ -n "$GIT_STATUS" ]]; then
 fi
 
 echo "Will build images with the following tags:"
-echo -e "Based on php:7.2-cli-alpine:\t$CLI_TAG, latest, $GIT_SHORT_COMMIT, $GIT_SHORT_COMMIT-$CLI_TAG"
-echo -e "Based on php:7.2-fpm-alpine:\t$FPM_TAG, $GIT_SHORT_COMMIT-$FPM_TAG"
+echo -e "Based on php:7.3-cli-alpine:\t$CLI_TAG, latest, $GIT_SHORT_COMMIT, $GIT_SHORT_COMMIT-$CLI_TAG"
+echo -e "Based on php:7.3-fpm-alpine:\t$FPM_TAG, $GIT_SHORT_COMMIT-$FPM_TAG"
 echo
 
-echo "Building image based on php:7.2-cli-alpine (default image):"
+echo "Building image based on php:7.3-cli-alpine (default image):"
 
 docker build \
   -t carimus/laravel-alpine:$CLI_TAG \
   -t carimus/laravel-alpine:latest \
   -t carimus/laravel-alpine:$GIT_SHORT_COMMIT \
   -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG \
-  -f ./php7.2-cli/Dockerfile \
+  -f ./php7.3-cli/Dockerfile \
   .
 
 echo
 
-echo "Building image based on php:7.2-fpm-alpine:"
+echo "Building image based on php:7.3-fpm-alpine:"
 
 docker build \
   -t carimus/laravel-alpine:$FPM_TAG \
   -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG \
-  -f ./php7.2-fpm/Dockerfile \
+  -f ./php7.3-fpm/Dockerfile \
   .
 
 echo

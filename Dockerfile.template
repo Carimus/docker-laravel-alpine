@@ -25,7 +25,7 @@ RUN /opt/install-extensions.sh
 
 # Install awscli
 RUN apk -v --update add \
-        python \
+        python2 \
         py-pip \
         groff \
         less \
