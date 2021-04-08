@@ -20,6 +20,7 @@ RUN chmod +x /opt/composer.phar \
     && ln -s /opt/composer.phar /usr/bin/composer
 
 # Install PHP extensions
+ENV PHPREDIS_VERSION 4.2.0
 COPY support/install-extensions.sh /opt/install-extensions.sh
 RUN /opt/install-extensions.sh
 
