@@ -1,11 +1,11 @@
-FROM __BASE_IMAGE__
+FROM php:7.4-fpm-alpine
 
 WORKDIR /opt
 
 # Install apk packages we want
 RUN apk add -Uuv \
     git bash supervisor freetype-dev libjpeg-turbo-dev libzip-dev \
-    libpng-dev postgresql-dev __EXTRA_APK_PACKAGES__ \
+    libpng-dev postgresql-dev nginx \
     && rm -rf /var/cache/apk/*
 
 # Install wait-for-it
@@ -20,7 +20,7 @@ RUN chmod +x /opt/composer.phar \
     && ln -s /opt/composer.phar /usr/bin/composer
 
 # Install PHP extensions
-ENV PHPREDIS_VERSION __PHPREDIS_VERSION__
+ENV PHPREDIS_VERSION 5.3.2
 COPY support/install-extensions.sh /opt/install-extensions.sh
 RUN /opt/install-extensions.sh
 

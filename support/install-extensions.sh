@@ -2,6 +2,7 @@
 
 # Download phpredis sources to a dir that docker-php-ext-install will look in and make it aware it's there.
 export PHPREDIS_VERSION="${PHPREDIS_VERSION-4.2.0}"
+echo "Using phpredis version: $PHPREDIS_VERSION"
 mkdir -p /usr/src/php/ext/redis \
     && curl -L https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz | tar xvz -C /usr/src/php/ext/redis --strip 1 \
     && echo 'redis' >> /usr/src/php-available-exts
