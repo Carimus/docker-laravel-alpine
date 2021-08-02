@@ -6,8 +6,14 @@ GIT_STATUS="$(git status -s)"
 GIT_SHORT_COMMIT="$(git rev-parse --short HEAD)"
 
 REPO_NAME="carimus/laravel-alpine"
-CLI_TAG="php7.3-cli"
-FPM_TAG="php7.3-fpm"
+CLI_TAG_SUFFIX="-cli"
+FPM_TAG_SUFFIX="-fpm"
+CLI_TAG_73="php7.3$CLI_TAG_SUFFIX"
+FPM_TAG_73="php7.3$FPM_TAG_SUFFIX"
+CLI_TAG_74="php7.4$CLI_TAG_SUFFIX"
+FPM_TAG_74="php7.4$FPM_TAG_SUFFIX"
+CLI_TAG_80="php8.0$CLI_TAG_SUFFIX"
+FPM_TAG_80="php8.0$FPM_TAG_SUFFIX"
 
 if [[ -n "$GIT_STATUS" ]]; then
   echo "There are untracked changes or the working tree is dirty."
@@ -16,17 +22,61 @@ if [[ -n "$GIT_STATUS" ]]; then
 fi
 
 echo "Will build images with the following tags:"
-echo -e "Based on php:7.3-cli-alpine:\t$CLI_TAG, latest, $GIT_SHORT_COMMIT, $GIT_SHORT_COMMIT-$CLI_TAG"
-echo -e "Based on php:7.3-fpm-alpine:\t$FPM_TAG, $GIT_SHORT_COMMIT-$FPM_TAG"
+echo -e "Based on php:8.0-cli-alpine:\t$CLI_TAG_80, latest, $GIT_SHORT_COMMIT, $GIT_SHORT_COMMIT-$CLI_TAG_80"
+echo -e "Based on php:8.0-fpm-alpine:\t$FPM_TAG_80, $GIT_SHORT_COMMIT-$FPM_TAG_80"
+echo -e "Based on php:7.4-cli-alpine:\t$CLI_TAG_74, $GIT_SHORT_COMMIT-$CLI_TAG_74"
+echo -e "Based on php:7.4-fpm-alpine:\t$FPM_TAG_74, $GIT_SHORT_COMMIT-$FPM_TAG_74"
+echo -e "Based on php:7.3-cli-alpine:\t$CLI_TAG_73, $GIT_SHORT_COMMIT-$CLI_TAG_73"
+echo -e "Based on php:7.3-fpm-alpine:\t$FPM_TAG_73, $GIT_SHORT_COMMIT-$FPM_TAG_73"
 echo
 
-echo "Building image based on php:7.3-cli-alpine (default image):"
+echo "Building image based on php:8.0-cli-alpine (default image):"
 
 docker build \
-  -t carimus/laravel-alpine:$CLI_TAG \
+  -t carimus/laravel-alpine:$CLI_TAG_80 \
   -t carimus/laravel-alpine:latest \
   -t carimus/laravel-alpine:$GIT_SHORT_COMMIT \
-  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG \
+  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG_80 \
+  -f ./php8.0-cli/Dockerfile \
+  .
+
+echo
+
+echo "Building image based on php:8.0-fpm-alpine:"
+
+docker build \
+  -t carimus/laravel-alpine:$FPM_TAG_80 \
+  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG_80 \
+  -f ./php8.0-fpm/Dockerfile \
+  .
+
+echo
+
+echo "Building image based on php:7.4-cli-alpine:"
+
+docker build \
+  -t carimus/laravel-alpine:$CLI_TAG_74 \
+  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG_74 \
+  -f ./php7.4-cli/Dockerfile \
+  .
+
+echo
+
+echo "Building image based on php:7.4-fpm-alpine:"
+
+docker build \
+  -t carimus/laravel-alpine:$FPM_TAG_74 \
+  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG_74 \
+  -f ./php7.4-fpm/Dockerfile \
+  .
+
+echo
+
+echo "Building image based on php:7.3-cli-alpine:"
+
+docker build \
+  -t carimus/laravel-alpine:$CLI_TAG_73 \
+  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG_73 \
   -f ./php7.3-cli/Dockerfile \
   .
 
@@ -35,8 +85,8 @@ echo
 echo "Building image based on php:7.3-fpm-alpine:"
 
 docker build \
-  -t carimus/laravel-alpine:$FPM_TAG \
-  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG \
+  -t carimus/laravel-alpine:$FPM_TAG_73 \
+  -t carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG_73 \
   -f ./php7.3-fpm/Dockerfile \
   .
 
@@ -44,12 +94,22 @@ echo
 
 echo "Pushing images to docker hub:"
 
-docker push carimus/laravel-alpine:$CLI_TAG
+docker push carimus/laravel-alpine:$CLI_TAG_80
 docker push carimus/laravel-alpine:latest
 docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT
-docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG
-docker push carimus/laravel-alpine:$FPM_TAG
-docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG
+docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG_80
+docker push carimus/laravel-alpine:$FPM_TAG_80
+docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG_80
+
+docker push carimus/laravel-alpine:$CLI_TAG_74
+docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG_74
+docker push carimus/laravel-alpine:$FPM_TAG_74
+docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG_74
+
+docker push carimus/laravel-alpine:$CLI_TAG_73
+docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$CLI_TAG_73
+docker push carimus/laravel-alpine:$FPM_TAG_73
+docker push carimus/laravel-alpine:$GIT_SHORT_COMMIT-$FPM_TAG_73
 
 echo
 
