@@ -10,3 +10,8 @@ mkdir -p /usr/src/php/ext/redis \
 # Install mysql, mysqli, opcache, phpredis, and pcntl
 NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1)
 docker-php-ext-install "-j${NPROC}" pdo pdo_mysql pdo_pgsql mysqli opcache redis pcntl gd bcmath posix zip
+docker-php-ext-configure gd \
+  --with-gd \
+  --with-freetype-dir=/usr/include/ \
+  --with-png-dir=/usr/include/ \
+  --with-jpeg-dir=/usr/include/
